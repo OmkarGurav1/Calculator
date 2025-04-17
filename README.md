@@ -1,1 +1,1 @@
-# Calculator
+A "calculator project" involves creating a program or device that can perform basic or advanced mathematical calculations, often including features like addition, subtraction, multiplication, division, and potentially more complex operations like square roots, exponents, or trigonometric functions
