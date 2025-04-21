@@ -1,64 +1,37 @@
-html{
-    text-align: center;
-    font-family: monospace;
+*{
+    margin: 0;
+    padding: 0;
 }
 
-#zero {
-    grid-column: span 2;
+.calculator{
+    width: 25%;
+    height: 200%;
+    border: 1px solid black;
 }
 
-.operator {
-    background-color: orange;    
+#input{
+    width: 100%;
+    height: 100%;
+    border: 1px solid black;
 }
 
-.operator:focus {
-    background-color: #ffc183;
+input{
+    height: 90%;
+    width: auto;
+    border: none;
 }
 
-.equals {
-    background-color: darkorange;
+#buttons-container{
+    height: 100%;
+    width: 100%;
+    border: 1px solid black;
 }
 
-.equals:active {
-    background-color: #ffc183;
-}
+button{
+    height: 60px;
+    width: 70px;
+    background-color: aqua;
+    color: black;
 
-.operand {
-    background-color: darkseagreen;
-}
 
-.operand:active {
-    background-color: lightskyblue;
-}
-
-.decimal {
-    background-color: green;
-}
-
-.decimal:active {
-    background-color: lightblue;
-}
-
-.clear {
-    background-color: dodgerblue;
-}
-
-.clear:active {
-    background-color: rgb(123, 189, 255);
-}
-
-.sign {
-    background-color: dodgerblue;
-}
-
-.sign:active {
-    background-color: rgb(123, 189, 255);
-}
-
-.percent {
-    background-color: dodgerblue;
-}
-
-.percent:active {
-    background-color: rgb(123, 189, 255);
 }
