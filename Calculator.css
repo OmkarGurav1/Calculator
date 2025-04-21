@@ -1,0 +1,64 @@
+html{
+    text-align: center;
+    font-family: monospace;
+}
+
+#zero {
+    grid-column: span 2;
+}
+
+.operator {
+    background-color: orange;    
+}
+
+.operator:focus {
+    background-color: #ffc183;
+}
+
+.equals {
+    background-color: darkorange;
+}
+
+.equals:active {
+    background-color: #ffc183;
+}
+
+.operand {
+    background-color: darkseagreen;
+}
+
+.operand:active {
+    background-color: lightskyblue;
+}
+
+.decimal {
+    background-color: green;
+}
+
+.decimal:active {
+    background-color: lightblue;
+}
+
+.clear {
+    background-color: dodgerblue;
+}
+
+.clear:active {
+    background-color: rgb(123, 189, 255);
+}
+
+.sign {
+    background-color: dodgerblue;
+}
+
+.sign:active {
+    background-color: rgb(123, 189, 255);
+}
+
+.percent {
+    background-color: dodgerblue;
+}
+
+.percent:active {
+    background-color: rgb(123, 189, 255);
+}
