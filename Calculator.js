@@ -1,42 +1,42 @@
 let a = "0", b = "", operator = ""
 let shouldClearDisplay = true;
 
+
 const buttons = document.querySelectorAll('button');
+console.log("Buttons:", buttons);
 const display = document.querySelector(".display");
 const numbers = document.querySelectorAll('.number');
-const operators = document.querySelectorAll('.operator')
-const equals = document.querySelector(".equals")
-const clear = document.querySelector(".clear")
-const decimal = document.querySelector(".decimal")
-const del = document.querySelector(".delete")
-const sign = document.querySelector(".sign")
+const operators = document.querySelectorAll('.operator');
+const equals = document.querySelector(".equals");
+const clear = document.querySelector(".clear");
+//const decimal = document.querySelector(".decimal");
+const del = document.querySelector(".delete");
+//const sign = document.querySelector(".sign");
 
 function clickButton() {
     window.onload = function () {
         for (let i = 0; i < buttons.length; i++) {
             buttons[i]?.addEventListener('click', function () {
                 const buttonValue = this.value;
-                console.log("Button Clicked:", buttonValue);
+                console.log("Button Clicked:", buttonValue); // Debugging the button click
 
                 if (this.classList.contains('operand')) {
-                if (shouldClearDisplay) {
-                    display.value = buttonValue;
-                    shouldClearDisplay = false;
-                } else {
-                    display.value += buttonValue; 
-                }
-                displayValue = display.value;
-                }
-                else if (this.classList.contains('operator') && buttonValue !== "=") {
-                    firstNumber = parseFloat(display.value);//Get first number from display
-                    selectedOperator = buttonValue;//Get operator from button
+                    if (shouldClearDisplay) {
+                        display.value = buttonValue;
+                        shouldClearDisplay = false;
+                    } else {
+                        display.value += buttonValue;
+                    }
+                    displayValue = display.value;
+                } else if (this.classList.contains('operator') && buttonValue !== "=") {
+                    firstNumber = parseFloat(display.value);
+                    selectedOperator = buttonValue;
                     console.log("First Number:", firstNumber);
-                    shouldClearDisplay = true;//clear display screen for next number
-                }
-                else if(this.classList.contains('operator') && buttonValue === "="){
-                    secondNumber = parseFloat(display.value);//Get second number from display
-                    console.log("SecondNumber:", secondNumber);
-                    shouldClearDisplay = false;//display screen for next number
+                    shouldClearDisplay = true;
+                } else if (buttonValue === "=") {
+                    secondNumber = parseFloat(display.value);
+                    console.log("Second Number:", secondNumber);
+                    shouldClearDisplay = false;
                     if (selectedOperator === "+") {
                         result = add(firstNumber, secondNumber);
                     } else if (selectedOperator === "-") {
@@ -46,13 +46,21 @@ function clickButton() {
                     } else if (selectedOperator === "/") {
                         result = divide(firstNumber, secondNumber);
                     }
-                    /*else if(selectedOperator === "C" && result === null){
-                        clearDisplay();
-                        display.value = '0';
-                        console.log("Display Cleared");
-                    }*/
+                    else if (selectedOperator === "+/-"){
+                        result = -firstNumber;
+                    }
+                    else if(selectedOperator === "%"){
+                        result = firstNumber / 100;
+                    }
+                    else if(selectedOperator === "."){
+                        result = firstNumber + "." + secondNumber;  
+                    }
                     display.value = result;
                     console.log("Result:", result);
+                } else {
+                    console.log("Clear button clicked, resetting display...");
+                    clearDisplay();
+                    console.log("Display Cleared");
                 }
             });
         }
@@ -86,6 +94,18 @@ function divide(a, b) {
     return a / b;
 }
 
+function sign(a){
+    return -a;
+}
+
+function percent(a){
+    return a / 100;
+}
+
+function decimal(a){
+    return a + "." + b;
+}
+
 function updateDisplay(value) {
     displayValue = value;
 }
@@ -93,11 +113,15 @@ function updateDisplay(value) {
 updateDisplay();
 
 function clearDisplay() {
-    display.value = '0';
-    firstNumber = null;
-    secondNumber = null;
-    selectedOperator = null;
-    result = null;
+    console.log("clearDisplay() called"); // Debugging the function call
+    display.value = '0'; // Reset the display to 0
+    displayValue = '0'; // Reset the global displayValue
+    firstNumber = null; 
+    secondNumber = null; 
+    selectedOperator = null; 
+    result = null; 
+    shouldClearDisplay = true; 
+    console.log("Calculator Reset");
 }
 
 clearDisplay();
@@ -115,4 +139,16 @@ function operate(a, b, operator) {
     } else if (operator == '/') {
         return divide(a, b)
     }
+    else if(operator == '+/-'){
+        return sign(a)
+    }
+    else if(operator == '%'){
+        return percent(a)
+    }
+    else if(operator == '.'){
+        return decimal(a)
+    }
+    else {
+        return "Invalid operator"
+    }   
 }
