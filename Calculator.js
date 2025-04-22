@@ -11,15 +11,55 @@ const decimal = document.querySelector(".decimal")
 const del = document.querySelector(".delete")
 const sign = document.querySelector(".sign")
 
-function clickButton(){
-window.onload = function(){
-    for(let i = 0;i < buttons.length;i++)
-    buttons[i]?.addEventListener('click',function(){
-        console.log("Button Click");
-        buttons.classList.toggle('active');
-       }); 
-  }
+function clickButton() {
+    window.onload = function () {
+        for (let i = 0; i < buttons.length; i++) {
+            buttons[i]?.addEventListener('click', function () {
+                const buttonValue = this.value;
+                console.log("Button Clicked:", buttonValue);
+
+                if (this.classList.contains('operand')) {
+                if (shouldClearDisplay) {
+                    display.value = buttonValue;
+                    shouldClearDisplay = false;
+                } else {
+                    display.value += buttonValue; 
+                }
+                displayValue = display.value;
+                }
+                else if (this.classList.contains('operator') && buttonValue !== "=") {
+                    firstNumber = parseFloat(display.value);//Get first number from display
+                    selectedOperator = buttonValue;//Get operator from button
+                    console.log("First Number:", firstNumber);
+                    shouldClearDisplay = true;//clear display screen for next number
+                }
+                else if(this.classList.contains('operator') && buttonValue === "="){
+                    secondNumber = parseFloat(display.value);//Get second number from display
+                    console.log("SecondNumber:", secondNumber);
+                    shouldClearDisplay = false;//display screen for next number
+                    if (selectedOperator === "+") {
+                        result = add(firstNumber, secondNumber);
+                    } else if (selectedOperator === "-") {
+                        result = subtract(firstNumber, secondNumber);
+                    } else if (selectedOperator === "*") {
+                        result = multiply(firstNumber, secondNumber);
+                    } else if (selectedOperator === "/") {
+                        result = divide(firstNumber, secondNumber);
+                    }
+                    /*else if(selectedOperator === "C" && result === null){
+                        clearDisplay();
+                        display.value = '0';
+                        console.log("Display Cleared");
+                    }*/
+                    display.value = result;
+                    console.log("Result:", result);
+                }
+            });
+        }
+    }
 }
+
+clickButton();
 
 let displayValue = '0';
 let firstNumber = null;
@@ -46,12 +86,6 @@ function divide(a, b) {
     return a / b;
 }
 
-console.log("Add 5 and 3:", add(5, 3)); // 8
-console.log("Subtract 10 from 20:", subtract(20, 10)); // 10
-console.log("Multiply 4 by 6:", multiply(4, 6)); // 24
-console.log("Divide 20 by 5:", divide(20, 5)); // 4
-console.log("Divide 10 by 0:", divide(10, 0)); // Division by zero is not allowed
-
 function updateDisplay(value) {
     displayValue = value;
 }
@@ -59,7 +93,7 @@ function updateDisplay(value) {
 updateDisplay();
 
 function clearDisplay() {
-    displayValue = '0';
+    display.value = '0';
     firstNumber = null;
     secondNumber = null;
     selectedOperator = null;
@@ -82,5 +116,3 @@ function operate(a, b, operator) {
         return divide(a, b)
     }
 }
-
-operate();
